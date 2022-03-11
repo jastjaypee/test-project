@@ -6,15 +6,15 @@ Given('browser is at Onewallet website', () => {
   cy.location().should((loc) => {
     expect(loc.href).to.eq(url);
   });
-  cy.get('#field-16').should('exist');
-  cy.get('#field-17').should('exist');
+  cy.get('[placeholder="Username"]').should('exist');
+  cy.get('[placeholder="Password"]').should('exist');
   cy.get('[data-testid="login-form"] > .chakra-button').should('exist');
 })
 
 //Scenario: Login validation for invalid credentials
 When('user clicks login button with fields empty', () => {
-  cy.get('#field-16');
-  cy.get('#field-17');
+  cy.get('[placeholder="Username"]');
+  cy.get('[placeholder="Password"]');
   cy.get('[data-testid="login-form"] > .chakra-button').click();
 })
 
@@ -25,8 +25,8 @@ Then('validation messages appears', () => {
 
 //Scenario: Login validation for incorrect credentials
 When('user Login with wrong username or password', () => {
-  cy.get('#field-16').type('test');
-  cy.get('#field-17').type('test');
+  cy.get('[placeholder="Username"]').type('test');
+  cy.get('[placeholder="Password"]').type('test');
   cy.get('[data-testid="login-form"] > .chakra-button').click();
 })
 
@@ -37,8 +37,8 @@ Then('an error message pops up "Invalid Username or Password"', () => {
 
 //Scenario: Login successfully
 When('user enters correct username and password',() => {
-  cy.get('#field-16').type('autotest');
-  cy.get('#field-17').type('password');
+  cy.get('[placeholder="Username"]').type('autotest');
+  cy.get('[placeholder="Password"]').type('password');
   cy.get('[data-testid="login-form"] > .chakra-button').click();
 })
 
@@ -49,19 +49,3 @@ Then('user Login successfully and redirects to default page', () => {
   
 })
 
-//Scenario: Logout successfully
-When('user enters correct username and password',() => {
-  cy.get('#field-16').type('autotest');
-  cy.get('#field-17').type('password');
-  cy.get('[data-testid="login-form"] > .chakra-button').click();
-})
-
-Then('user Login successfully and redirects to default page', () => {
-  cy.location().should((loc) => {
-    expect(loc.href).to.eq(url);
-  });
-  cy.get('#menu-button-20 > .chakra-icon').click();
-  cy.get(':nth-child(6) > .css-9yxtxa').click();
-
-  
-})
